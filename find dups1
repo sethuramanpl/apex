@@ -1,0 +1,33 @@
+
+/*
+In Salesforce, Apex is a strongly-typed, object-oriented programming language that can be used to write custom business logic. 
+You can write Apex code to find duplicate records in an object by querying the object, comparing records, and adding duplicates to a list.
+Here's a simple example:
+*/
+public class DuplicateRecordFinder {
+    public static void findDuplicates(List<SObject> records) {
+        Map<String, SObject> uniqueRecords = new Map<String, SObject>();
+        List<SObject> duplicateRecords = new List<SObject>();
+
+        for (SObject record : records) {
+            String key = '';
+            // Use a unique identifier such as a name or email to identify duplicates
+            key = (String)record.get('Name');
+            if (uniqueRecords.containsKey(key)) {
+                duplicateRecords.add(record);
+            } else {
+                uniqueRecords.put(key, record);
+            }
+        }
+        System.debug(duplicateRecords);
+    }
+}
+
+/*
+In this example, the findDuplicates method takes a list of records as an input and compares them using a unique identifier, 
+in this case the Name field. If a record with the same identifier already exists in the uniqueRecords map,
+it is added to the duplicateRecords list. The duplicates can then be processed or deleted as needed.
+
+Note that this example uses a simple approach for finding duplicates and may not be suitable for all use cases.
+You may need to adjust the code to fit the specific requirements of your data and duplicate detection logic.
+*/
